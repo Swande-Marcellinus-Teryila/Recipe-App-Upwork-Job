@@ -15,6 +15,11 @@ class Ingredient extends Model
     public function recipe_ingredient(){
         return $this->belongsTo(RecipeIngrident::class);
     }
+
+    public function measurement(){
+        return $this->belongsTo(measurement::class);
+    }
+    
     public function getAlreadySelectedIngredient($ingredient_id,$recipe_id){
         $result =RecipeIngrident::where("ingredient_id",$ingredient_id)
         ->where('recipe_id',$recipe_id)

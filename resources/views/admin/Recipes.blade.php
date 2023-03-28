@@ -188,10 +188,9 @@
                                                                                         class="btn btn-secondary"
                                                                                         data-bs-dismiss="modal">Cancel</button>
 
-
+ hb
                                                                                     <a href="recipe-ingredient/{{ $recipe->id }}"
-                                                                                        class="btn btn-primary  title="view
-                                                                                        Recipe Ingredients">
+                                                                                        class="btn btn-primary  title="view Recipe Ingredients">
                                                                                         details
                                                                                     </a>
                                                                                 </div>

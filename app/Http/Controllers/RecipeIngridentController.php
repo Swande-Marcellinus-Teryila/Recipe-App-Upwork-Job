@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ingredient;
+use App\Models\Measurement;
+use App\Models\MeasurementPairing;
 use App\Models\RecipeIngrident;
 use Illuminate\Http\Request;
 
@@ -33,15 +35,19 @@ class RecipeIngridentController extends Controller
     public function store(Request $request, $recipe_id)
     {
         $recipe_ingredent = new RecipeIngrident();
+      
+        $qty_index =0;
         if (is_array($request->ingredient)) {
             foreach ($request->ingredient as $ingr) {
                 if (!RecipeIngrident::where("ingredient_id", $ingr)
                     ->where("recipe_id", $recipe_id)->exists()) {
                     RecipeIngrident::create([
                         'ingredient_id' => $ingr,
+                        'quantity'=>$request->quantity[$qty_index],
                         'recipe_id' => $recipe_id
                     ]);
                 }
+                $qty_index++;
             }
         }
             return redirect()->back();
@@ -50,7 +56,7 @@ class RecipeIngridentController extends Controller
 
 
     public function show($recipe_id)
-    {
+    {   $measurements = Measurement::all();
         $ingredents = Ingredient::all();
         $already_selected_recipe_ingredients = RecipeIngrident::with('ingredient')
         ->where('recipe_id',$recipe_id)
@@ -62,14 +68,24 @@ class RecipeIngridentController extends Controller
             'admin.add-recipe-ingredient',
             [   'recipe_id' =>$recipe_id,
                 'ingredients' => $ingredents,
+                'measurements'=>$measurements,
                 'already_selected_recipe_ingredients'=>$already_selected_recipe_ingredients
             ]
         );
     }
 
+    
     public function edit(RecipeIngrident $recipeIngrident)
     {
         //
+    }
+    function get_small_units($big_unit_id){
+        $small_recepe_units  =MeasurementPairing::with("small_unit")
+        ->Where("big_unit_id",$big_unit_id)->get();
+        #return response()->json($small_recepe_units);
+         return view("admin.components.get-ingredients",["small_recepe_units"=>$small_recepe_units]);    
+    
+
     }
 
 

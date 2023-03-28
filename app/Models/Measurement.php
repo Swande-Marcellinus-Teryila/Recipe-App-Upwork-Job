@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Measurement extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'measurement',
+        'units'
+    ];
+
+   
+    public $timestamps = false;
 }

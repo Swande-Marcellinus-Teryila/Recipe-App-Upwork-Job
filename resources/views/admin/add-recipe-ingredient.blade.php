@@ -36,15 +36,16 @@
                                                 <thead>
 
                                                     <tr>
-                                                        <th>Select - Ingredient</th>
-                                                        <th></th>
+                                                       
+                                                        <th>Ingredients/cost</th>
+                                                        <th> Recipe Selection </th>
                                                         
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($ingredients as $ingredient)
                                                         
-                                                   
+                                                   <tr>
                                                  
                                                         <td>
                                                             @php 
@@ -52,21 +53,38 @@
 
                                                             @endphp
                                                             <input type="checkbox" value="{{ $ingredient->id }}" name="ingredient[]"
-                                                             @if (count($checked_ingr)>0)
+                                                             
+                                                            @if (count($checked_ingr)>0)
                                                              
                                                                 @checked(true)>  {{ $ingredient->ingredient }}
                                                         </td>
+                                                        
                                                        
                                                         <td>
                                                             <a class="btn btn-warning" href="/recipe-ingredient/delete/{{$checked_ingr[0]['id']}}">
-                                                                unselect
+                                                                Unselect
                                                             </a>
                                                         </td>
-                                                        </tr>
+
+                                                    
                                                              @else
                                                        >  {{ $ingredient->ingredient }}
-                                                    @endif </td>  
-                                                </td>
+                                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                       <input type="number"  name="quantity[]" value="" placeholder="quantity">
+                                                       <input type="number"  name="cost[]" value="" placeholder="Cost">
+                                                       <select  onchange="get_small_unit(this.value,{{$ingredient->id}})">
+                                                        <option value="">Select measurement</option>
+                                                        @foreach ($measurements as $measure )
+                                                            <option value="{{ $measure->id }}">{{ $measure->measurement }}</option>
+                                                        @endforeach
+                                                         
+                                                    </select>
+                                                    @endif <td> 
+                                                       
+                                                        <div  id="small_units{{$ingredient->id }}">
+                                                        </div>
+
+                                                    </td> 
                                             </tr>  
                                                     
                                                     @endforeach

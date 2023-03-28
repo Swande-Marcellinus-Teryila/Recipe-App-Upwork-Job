@@ -23,7 +23,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Ingredients</h4>
+                                        <h4 class="card-title">measurements</h4>
                                     </div>
                                     <div class="card-content">
                                         <div class="card-body">
@@ -34,36 +34,13 @@
                                             
 
                                             <!-- table striped -->
-                                            <div class="table-responsive">
-                                                <div style="float:right">
-                                                    @foreach ($overhead as $overhead )
-                                                        
-                                                    
-                                                    <form method="post" action="overhead/{{$overhead->id}}">
-                                                        @csrf
-                                                        @method('patch')
-                                                        <label><b>Overhead($)</b></label>
-                                                        <input type="number" step="0.2" name="overhead" value="{{ $overhead['overhead'] }}" />
-                                                        <input type="submit" class="btn btn-secondary" value="Set">
-                                                    </form>
-                                                    @endforeach
-                                                </div>
-                                                @if (session()->has('message'))
-                                                    <div class="alert alert-success"> {{ session('message') }}</div>
-                                                @endif
-                                                @if (session()->has('errmsg'))
-                                                    <div class="alert alert-danger"> {{ session('errmsg') }}</div>
-                                                @endif
+                                            <div class="table-responsive">   
                                                 <table class="table table-striped mb-0">
                                                     <thead>
 
                                                         <tr>
                                                             <th>S/N</th>
-                                                            <th>Ingredients</th>
-                                                            <th>Cost</th>
-                                                       
-                                                            <th> Measurement </th>
-                                                            <th>Date Added</th>
+                                                            <th>Measurement</th>
                                                             <th>ACTION</th>
                                                         </tr>
                                                     </thead>
@@ -71,38 +48,30 @@
                                                         @php
                                                             $i = 0;
                                                         @endphp
-                                                        @foreach ($ingredients as $ingredient)
+                                                        @foreach ($measurements as $measurement)
                                                             @php
                                                                 $i += 1;
                                                             @endphp
                                                             <tr>
                                                                 <td>{{ $i }}</td>
-                                                                <td class="text-bold-500">{{ $ingredient['ingredient'] }}
+                                                                <td class="text-bold-500">{{ $measurement["measurement"]}} ({{ $measurement['units'] }})
                                                                 </td>
-                                                                <td>$ {{ $ingredient['cost'] }}</td>
-                                                               
-                                                                <td> {{ $ingredient['quantity'] }}
-                                                                    {{ $ingredient->measurement->measurement}}
-                                                             ({{ $ingredient->measurement->units}})
-                                                            </td>
-                                                           
-                                                            <td class="text-bold-500">
-                                                                    {{ $ingredient->created_at->diffForHumans() }}</td>
+                                                                
                                                                 <td>
                                                                     <button type="button" class="btn btn-primary"
                                                                         data-bs-toggle="modal"
-                                                                        data-bs-target="#basicModal1{{ $ingredient->id }}">
+                                                                        data-bs-target="#basicModal1{{ $measurement->id }}">
                                                                         Edit <i class="bi bi-pen"></i>
                                                                     </button>
                                                                     <div class="modal fade"
-                                                                        id="basicModal1{{ $ingredient->id }}"
+                                                                        id="basicModal1{{ $measurement->id }}"
                                                                         tabindex="-1">
                                                                         <div class="modal-dialog">
                                                                             <div class="modal-content">
                                                                                 <div class="modal-header">
                                                                                     <h4
                                                                                         class="modal-title d-none d-lg-block">
-                                                                                        Edit Ingredient</h4>
+                                                                                        Edit Measurements</h4>
                                                                                     <button type="button" class="btn-close"
                                                                                         data-bs-dismiss="modal"
                                                                                         aria-label="Close">
@@ -111,21 +80,32 @@
                                                                                 <div class="modal-body">
 
                                                                                     <form method="post"
-                                                                                        action="ingredients/{{ $ingredient->id }}"
+                                                                                        action="measurements/{{ $measurement->id }}"
                                                                                         enctype="multipart/form-data">
                                                                                         @csrf
                                                                                         @method('PATCH')
 
                                                                                         <div class="row mb-12">
                                                                                             <label for="inputText"
-                                                                                                class="col-sm-5 col-form-label">Ingredient</label>
+                                                                                                class="col-sm-5 col-form-label">Measurement</label>
                                                                                             <div class="col-sm-12">
+                                                                                                
                                                                                                 <input type="text"
                                                                                                     class="form-control"
-                                                                                                    name="ingredient"
-                                                                                                    value="{{ $ingredient->ingredient }}"
+                                                                                                    name="measurement"
+                                                                                                    value="{{ $measurement->measurement }}"
                                                                                                     required>
                                                                                             </div>
+
+                                                                                            <label for="inputText"
+                                                                                            class="col-sm-5 col-form-label">Unit</label>
+                                                                                        <div class="col-sm-12">
+                                                                                            
+                                                                                            <input type="text"
+                                                                                                class="form-control"
+                                                                                                name="units"
+                                                                                                value="{{ $measurement->units }}"
+                                                                                                required>
                                                                                         </div>
 
 
@@ -145,12 +125,12 @@
                                                                 <td>
                                                                     <button type="button" class="btn btn-danger"
                                                                         data-bs-toggle="modal"
-                                                                        data-bs-target="#basicModal{{ $ingredient->id }}">
+                                                                        data-bs-target="#basicModal{{ $measurement->id }}">
                                                                         <i class="bi bi-trash"></i>
                                                                     </button>
 
                                                                     <div class="modal fade"
-                                                                        id="basicModal{{ $ingredient->id }}"
+                                                                        id="basicModal{{ $measurement->id }}"
                                                                         tabindex="-1">
                                                                         <div class="modal-dialog">
                                                                             <div class="modal-content">
@@ -167,11 +147,11 @@
                                                                                 </div>
                                                                                 <div class="modal-body">
                                                                                     <h4>Are you sure you want to delete
-                                                                                        ingredient?</h4>
+                                                                                        measurement?</h4>
 
                                                                                 </div>
                                                                                 <form method="POST"
-                                                                                    action="ingredients/{{ $ingredient->id }}">
+                                                                                    action="measurements/{{ $measurement->id }}">
                                                                                     @csrf
                                                                                     @method('DELETE')
                                                                                     <div class="modal-footer">
@@ -204,7 +184,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title d-none d-lg-block">Add Ingredients</h4>
+                                    <h4 class="modal-title d-none d-lg-block">Add measurements</h4>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                         <i class=""></i></button>
                                 </div>
@@ -214,40 +194,17 @@
                                         @csrf
 
                                         <div class="row mb-12">
-                                            <label for="inputText" class="col-sm-5 col-form-label">Ingredient</label>
+                                            <label for="inputText" class="col-sm-5 col-form-label">measurement</label>
                                             <div class="col-sm-12">
-                                                <input type="text" class="form-control" name="ingredient" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-12">
-                                            <label for="inputText" class="col-sm-5 col-form-label"> </label>
-                                            <div class="col-sm-12">
-                                                <select name="measurement_id" class="form-control" required>
-                                                    @foreach ($measurements as $measurement )
-                                                    <option value="{{ $measurement['id'] }}">{{ $measurement->measurement }}({{ $measurement->units }}) </option> 
-                                                    @endforeach
-                                                   
-                                                </select>
+                                                <input type="text" class="form-control" name="measurement" required>
                                             </div>
                                         </div>
                                         <div class="row mb-12">
-                                            <label for="inputText" class="col-sm-5 col-form-label">Quantity</label>
+                                            <label for="inputText" class="col-sm-5 col-form-label">Unit</label>
                                             <div class="col-sm-12">
-                                                <input type="number" class="form-control" name="quantity"
-                                                    required>
+                                                <input type="text" class="form-control" name="unit" required>
                                             </div>
                                         </div>
-
-                                        <div class="row mb-12">
-                                            <label for="inputText" class="col-sm-5 col-form-label">Cost($)</label>
-                                            <div class="col-sm-12">
-                                                <input type="number" step="0.2" class="form-control" name="cost"
-                                                    required>
-                                            </div>
-                                        </div>
-                                   
-
 
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"

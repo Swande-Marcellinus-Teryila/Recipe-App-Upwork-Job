@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ingredient;
+use App\Models\Measurement;
 use App\Models\Overhead;
 use Illuminate\Http\Request;
 
@@ -11,11 +12,13 @@ class IngredientController extends Controller
     
     public function index()
     {
-        $ingredients = Ingredient::all();
-        $overhead = Overhead::all();
+        $ingredients  = Ingredient::with("measurement")->get();
+        $overhead     = Overhead::all();
+        $measurements = Measurement::all();
         return view('admin.ingredients',[
-            "ingredients"=>$ingredients,
-            "overhead"=>$overhead
+            "ingredients"  => $ingredients,
+            "overhead"     => $overhead,
+            "measurements" => $measurements
         ]);
     }
 
@@ -34,8 +37,10 @@ class IngredientController extends Controller
     { try {
         $ingredients = new Ingredient();
        
-        $ingredients->ingredient  = ucfirst($request->ingredient);
-        $ingredients->cost = $request->cost;
+        $ingredients->ingredient     = ucfirst($request->ingredient);
+        $ingredients->cost           = $request->cost;
+        $ingredients->measurement_id = $request->measurement_id;
+        $ingredients->quantity       = $request->quantity;
         $ingredients->save();
         return redirect()->back()->with('message','Ingredient addded successfully');
 
@@ -55,8 +60,10 @@ class IngredientController extends Controller
     public function update(Request $request,$id){ try {
         $ingredients = Ingredient::find($id);
        
-        $ingredients->ingredient  = ucfirst($request->ingredient);
-        $ingredients->cost = $request->cost;
+        $ingredients->ingredient = ucfirst($request->ingredient);
+        $ingredients->cost       = $request->cost;
+        $ingredients->measurement_id = $request->measurement_id;
+        $ingredients->quantity       = $request->quantity;
         $ingredients->save();
         return redirect()->back()->with('message','Ingredient updated successfully');
 

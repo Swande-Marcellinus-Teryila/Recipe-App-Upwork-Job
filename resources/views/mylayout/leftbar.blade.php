@@ -21,7 +21,21 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
-
+                    <li class="sidebar-item  has-sub">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-stack"></i>
+                            <span>Measurements</span>
+                        </a>
+                        <ul class="submenu ">
+                            <li class="submenu-item ">
+                                <a href="{{ url("/measurements") }}">Measurements</a>
+                            </li>
+                            <li class="submenu-item ">
+                                <a href="{{ url("measurement-pairing") }}">Measurement Pairing</a>
+                            </li>
+                        </ul>
+                    </li>
+                   
                     <li class="sidebar-item">
                         <a href="{{ url("/ingredients") }}" class='sidebar-link'>
                             <i class="bi bi-egg-fill"></i>
@@ -35,7 +49,8 @@
                         </a>
                     </li>
 
-
+                  
+                           
                 </ul>
             </div>
             <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>

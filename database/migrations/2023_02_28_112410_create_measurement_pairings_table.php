@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('measurements', function (Blueprint $table) {
+        Schema::create('measurement_pairings', function (Blueprint $table) {
             $table->id();
-            $table->string("units");
-            
+            $table->foreignId("big_unit_id")->constrained("measurements")->onDelete("cascade");
+            $table->foreignId("small_unit_id")->constrained("measurements")->onDelete("cascade");
+            $table->integer("per_unit");
+            $table->timestamps();
         });
     }
 
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('measurements');
+        Schema::dropIfExists('measurement_pairings');
     }
 };

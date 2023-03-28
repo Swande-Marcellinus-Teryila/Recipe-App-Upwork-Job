@@ -12,9 +12,9 @@ class MeasurementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(){
+        $measurements = Measurement::simplePaginate();
+    return view("admin.measurements",['measurements'=>$measurements]);
     }
 
     /**
@@ -35,7 +35,11 @@ class MeasurementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $measurement = new Measurement();
+        $measurement->measurement= ucfirst($request->measurement);
+        $measurement->units = ucfirst($request->unit);
+        $measurement->save();
+        return redirect()->back()->with("message","Measurement unit created successfully");
     }
 
     /**
@@ -67,9 +71,13 @@ class MeasurementController extends Controller
      * @param  \App\Models\Measurement  $measurement
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Measurement $measurement)
+    public function update(Request $request,$measurement_id)
     {
-        //
+        $measurement = Measurement::find($measurement_id);
+        $measurement->measurement = ucfirst($request->measurement);
+        $measurement->units = ucfirst($request->units);
+        $measurement->save();
+        return redirect()->back()->with("message","Measurement updated successfully");
     }
 
     /**
@@ -78,8 +86,11 @@ class MeasurementController extends Controller
      * @param  \App\Models\Measurement  $measurement
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Measurement $measurement)
-    {
-        //
+    public function destroy($measurement_id){
+   
+        $measurement = Measurement::find($measurement_id);
+        $measurement->delete();
+        return redirect()->back()->with("message","Measurement deleted successfully");
     }
+
 }
