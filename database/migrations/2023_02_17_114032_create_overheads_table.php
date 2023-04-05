@@ -15,8 +15,11 @@ return new class extends Migration
     {
         Schema::create('overheads', function (Blueprint $table) {
             $table->id();
-            $table->decimal("overhead",15,2);
-            $table->timestamps();
+            $table->foreignId("user_id")->constrained()->onDelete("cascade");
+            $table->foreignId("recipe_id")->constrained()->onDelete("cascade");
+            $table->integer("cost");
+            $table->string("overhead")->unique();
+            //$table->timestamps();
         });
     }
 

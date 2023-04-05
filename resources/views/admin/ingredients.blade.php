@@ -192,6 +192,7 @@
                                                         @endforeach
                                                     </tbody>
                                                 </table>
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -199,7 +200,7 @@
                             </div>
                     </section>
                     <!-- Striped rows end -->
-
+                   
                     <div class="modal fade" id="basicModal" tabindex="-1">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -260,6 +261,12 @@
                         </div><!-- End basic Modal-->
 
                     </div>
+
+                    <form  method="post">
+                       
+                        <input type="text" class="form-control" name="ingredient" required>
+             
+            </form>
             </section>
         </div>
     @endsection

@@ -56,10 +56,10 @@
                                                             <tr>
                                                                 <td>{{ $i }}</td>
                                                                 <td class="text-bold-500">
-                                                                    {{ $pairing->big_unit->units}}
+                                                                    {{ $pairing->big_unit->measurement}}
                                                                 </td>
                                                                 <td class="text-bold-500">
-                                                                   {{ $pairing->per_unit }} {{ $pairing->small_unit->units}}
+                                                                   {{ $pairing->per_unit }} {{ $pairing->small_unit->measurement}}
                                                                 </td>
                                                                 
                                                                 
@@ -204,7 +204,7 @@
                                             <div class="col-sm-12">
                                                 <select class="form-control" name="small_unit_id"  required>
                                                     @foreach ($measurements as $measurement)
-                                                    <option value="{{ $measurement->id }}">{{ $measurement->measurement }}({{$measurement->units  }})</option>
+                                                    <option value="{{ $measurement->id }}">{{ $measurement->measurement }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

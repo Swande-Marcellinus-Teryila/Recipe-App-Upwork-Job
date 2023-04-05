@@ -10,12 +10,12 @@ use Illuminate\Http\Request;
 class IngredientController extends Controller
 {
     
-    public function index()
+    public function index($recipe_id)
     {
-        $ingredients  = Ingredient::with("measurement")->get();
+        $ingredients  = Ingredient::with("measurement")->where("recipe_id",$recipe_id)->get();
         $overhead     = Overhead::all();
         $measurements = Measurement::all();
-        return view('admin.ingredients',[
+        return view('admin.add-recipe-ingredient',[
             "ingredients"  => $ingredients,
             "overhead"     => $overhead,
             "measurements" => $measurements
@@ -36,19 +36,26 @@ class IngredientController extends Controller
     public function store(Request $request)
     { try {
         $ingredients = new Ingredient();
-       
-        $ingredients->ingredient     = ucfirst($request->ingredient);
-        $ingredients->cost           = $request->cost;
+        $ingredients->user_id = 1;
+        $ingredients->recipe_id =$request->recipe_id;
+        $ingredients->ingredient = $request->ingredient;
+        $ingredients->quantity = $request->quantity;
         $ingredients->measurement_id = $request->measurement_id;
-        $ingredients->quantity       = $request->quantity;
+        $ingredients->cost = $request->cost;
+        $ingredients->package_size =$request->package_size;
+        $ingredients->serving_cost = $request->serving_cost;
+        $small_unit =explode(",",$request->small_unit_id);
+        $ingredients->small_unit_id  = $small_unit[0];
+
         $ingredients->save();
-        return redirect()->back()->with('message','Ingredient addded successfully');
+
+        return redirect()->back()->with('message','Ingredient added successfully');
 
     } catch (\Throwable $th) {
-        return redirect()->back()->with('errmsg','Sorry, something went wrong');
-    }
+        echo $th;
        
     }
+}
 
 
 
@@ -60,10 +67,13 @@ class IngredientController extends Controller
     public function update(Request $request,$id){ try {
         $ingredients = Ingredient::find($id);
        
-        $ingredients->ingredient = ucfirst($request->ingredient);
-        $ingredients->cost       = $request->cost;
+        $ingredients->user_id = 1;
+        $ingredients->recipe_id =$request->recipe_id;
+        $ingredients->ingredient = $request->ingredient;
+        $ingredients->quantity = $request->quantity;
         $ingredients->measurement_id = $request->measurement_id;
-        $ingredients->quantity       = $request->quantity;
+        $ingredients->cost = $request->cost;
+        $ingredients->package_size =$request->package_size;
         $ingredients->save();
         return redirect()->back()->with('message','Ingredient updated successfully');
 

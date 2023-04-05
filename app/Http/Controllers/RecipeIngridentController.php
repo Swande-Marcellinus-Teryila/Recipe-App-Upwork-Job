@@ -88,6 +88,15 @@ class RecipeIngridentController extends Controller
 
     }
 
+    function get_Ingredeint_price($big_unit_id){
+        $small_recepe_units  =MeasurementPairing::with("small_unit")
+        ->Where("big_unit_id",$big_unit_id)->get();
+        #return response()->json($small_recepe_units);
+         return view("admin.components.get-ingredients",["small_recepe_units"=>$small_recepe_units]);    
+    
+
+    }
+
 
     public function update(Request $request, RecipeIngrident $recipeIngrident)
     {

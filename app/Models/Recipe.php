@@ -12,12 +12,6 @@ class Recipe extends Model
         'recipe_name'
     ];
 
-    public function recipe_ingredients(){
-        return $this->hasMany(RecipeIngrident::class);
-    }
-
-    public function getIngredient($id){
-        $ingredient = Ingredient::where("id","=",$id)->first(['ingredient','cost']);
-        return $ingredient;
-    }
+ 
+   
 }

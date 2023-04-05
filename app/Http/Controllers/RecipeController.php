@@ -18,8 +18,8 @@ class RecipeController extends Controller
     {
         $profit_margin = ProfitMargin::all();
         $overhead = Overhead::all();
-        $recipes = Recipe::with('recipe_ingredients')->paginate(10);
-  
+        $recipes = Recipe::paginate(10);
+
         return view('admin.recipes',[
             'overhead'=>$overhead,
             'recipes'=>$recipes,
@@ -27,28 +27,30 @@ class RecipeController extends Controller
         ]);
     }
 
-    
+
     public function store(Request $request)
     { try {
         $recipes = new Recipe();
-       
+        $recipes->user_id =1;
         $recipes->recipe_name  = ucfirst($request->recipe);
         $recipes->save();
-        return redirect()->back()->with('message','Recipe addded successfully');
+        $recipe_id = $recipes->id;
+        return redirect("ingredients/".$recipe_id)->with('message','Recipe addded successfully');
 
     } catch (\Throwable $th) {
-        return redirect()->back()->with('errmsg','Sorry, something went wrong');
+
+   return redirect()->back()->with('errmsg','Sorry, something went wrong');
     }
 
-    
+
     }
 
-  
-  
+
+
 
     public function update(Request $request,$id){ try {
         $recipes = Recipe::find($id);
-       
+
         $recipes->recipe_name  = ucfirst($request->recipe);
 
         $recipes->save();
@@ -57,9 +59,9 @@ class RecipeController extends Controller
     } catch (\Throwable $th) {
         return redirect()->back()->with('errmsg','Sorry, something went wrong');
     }
-       
+
     }
-       
+
     public function destroy($id)
     {
       $recipe = Recipe::find($id);

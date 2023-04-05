@@ -15,12 +15,13 @@ class MeasurementPairingController extends Controller
      */
     public function index()
     {
-        $measurement_pairing = MeasurementPairing::with("big_unit","small_unit")->get();
-        $measuurements = Measurement::all();
-
+        $measurement_pairing = MeasurementPairing::with("big_unit")
+        ->with("small_unit")->get();
+        $measurements = Measurement::all();
+       // return response()->json($measurement_pairing);
         return view("admin.measurement-pairing",
         ['measurement_pairing'=>$measurement_pairing,
-    "measurements"=>$measuurements]);
+    "measurements"=>$measurements]);
     }
 
    

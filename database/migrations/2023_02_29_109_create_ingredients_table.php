@@ -15,11 +15,15 @@ return new class extends Migration
     {
         Schema::create('ingredients', function (Blueprint $table) {
             $table->id();
-            $table->string("ingredient")->unique();
-            $table->decimal("cost",15,2);
-            $table->integer("profit_margin")->default(0);
-            $table->foreignId("measurement_id")->constrained()->onDelete("cascade");
+            $table->foreignId("user_id")->constrained()->onDelete("cascade");
+            $table->foreignId("recipe_id")->constrained()->onDelete("cascade");
+            $table->string("ingredient");
             $table->integer("quantity");
+            $table->foreignId("measurement_id")->constrained()->onDelete("cascade");
+            $table->integer("small_unit_id")->constrained()->onDelete("cascade");
+            $table->string("serving_cost");
+            $table->integer("cost");
+            $table->integer("package_size");
             $table->timestamps();
         });
     }

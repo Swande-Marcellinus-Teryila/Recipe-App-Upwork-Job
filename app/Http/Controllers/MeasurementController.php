@@ -36,8 +36,8 @@ class MeasurementController extends Controller
     public function store(Request $request)
     {
         $measurement = new Measurement();
-        $measurement->measurement= ucfirst($request->measurement);
-        $measurement->units = ucfirst($request->unit);
+        $measurement->measurement= $request->measurement;
+     
         $measurement->save();
         return redirect()->back()->with("message","Measurement unit created successfully");
     }
@@ -74,8 +74,8 @@ class MeasurementController extends Controller
     public function update(Request $request,$measurement_id)
     {
         $measurement = Measurement::find($measurement_id);
-        $measurement->measurement = ucfirst($request->measurement);
-        $measurement->units = ucfirst($request->units);
+        $measurement->measurement = $request->measurement;
+    
         $measurement->save();
         return redirect()->back()->with("message","Measurement updated successfully");
     }

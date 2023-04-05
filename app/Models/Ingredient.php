@@ -20,6 +20,15 @@ class Ingredient extends Model
         return $this->belongsTo(measurement::class);
     }
     
+
+    function big_unit(){
+        return $this->belongsTo(Measurement::class,"big_unit_id","id","measurements");
+    }
+
+    function small_unit(){
+        return $this->belongsTo(Measurement::class,"small_unit_id","id","measurements");
+    }
+    
     public function getAlreadySelectedIngredient($ingredient_id,$recipe_id){
         $result =RecipeIngrident::where("ingredient_id",$ingredient_id)
         ->where('recipe_id',$recipe_id)

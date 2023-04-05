@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-icons/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/next-form-css/styles.css') }}">
     <link rel="shortcut icon" href="assets/images/favicon.sv" type="image/x-icon">
 </head>
 <body>
@@ -29,7 +30,9 @@
 
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
+<script src="{{ asset('assets/js/myformjs.js') }}"></script>
 <script src="{{ asset('assets/js/form.js') }}"></script>
+
 </body>
 
 </html>

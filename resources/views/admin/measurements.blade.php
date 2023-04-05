@@ -54,7 +54,7 @@
                                                             @endphp
                                                             <tr>
                                                                 <td>{{ $i }}</td>
-                                                                <td class="text-bold-500">{{ $measurement["measurement"]}} ({{ $measurement['units'] }})
+                                                                <td class="text-bold-500">{{ $measurement["measurement"]}}
                                                                 </td>
                                                                 
                                                                 <td>
@@ -97,16 +97,7 @@
                                                                                                     required>
                                                                                             </div>
 
-                                                                                            <label for="inputText"
-                                                                                            class="col-sm-5 col-form-label">Unit</label>
-                                                                                        <div class="col-sm-12">
-                                                                                            
-                                                                                            <input type="text"
-                                                                                                class="form-control"
-                                                                                                name="units"
-                                                                                                value="{{ $measurement->units }}"
-                                                                                                required>
-                                                                                        </div>
+                                                                                      
 
 
                                                                                         <div class="modal-footer">
@@ -199,12 +190,7 @@
                                                 <input type="text" class="form-control" name="measurement" required>
                                             </div>
                                         </div>
-                                        <div class="row mb-12">
-                                            <label for="inputText" class="col-sm-5 col-form-label">Unit</label>
-                                            <div class="col-sm-12">
-                                                <input type="text" class="form-control" name="unit" required>
-                                            </div>
-                                        </div>
+                                       
 
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"

@@ -46,80 +46,29 @@
                                                 @endif
                                                 <table class="table table-striped mb-0">
                                                      <div style="float:right">
-                                                @foreach ($profit_margin as $profit_m )
-                                                    
+                                                  
                                                 
-                                                <form method="post" action="profit-margin/{{$profit_m->id}}">
-                                                    @csrf
-                                                    @method('patch')
-                                                    <label><b>Profit Margin(%)</b></label>
-                                                    <input type="number" step="0.2" name="profit_margin" value="{{ $profit_m['profit_margin'] }}" />
-                                                    <input type="submit" class="btn btn-primary" value="Set">
-                                                </form>
-                                                @endforeach
-                                            </div>
                                                     <thead>
 
                                                         <tr>
                                                             <th>S/N</th>
                                                             <th>Recipe</th>
-                                                            <th>Price </th>
+                                                            
                                      
                                                             <th>Date Added</th>
-                                                            <th>Ingredients</th>
+                                                            
                                                             <th>ACTION</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @php
-                                                            $i = 0;
-                                                        @endphp
-                                                        @foreach ($recipes as $recipe)
-                                                            @php
-                                                                $i += 1;
-                                                            @endphp
-                                                            <tr>
-                                                                <td>{{ $i }}</td>
-                                                                <td class="text-bold-500">{{ $recipe['recipe_name'] }}
-                                                                </td>
-                                                                
-                                                                <td> 
-                                                                 
-                                                                                          @php
-                                                                                          $total_ = 0;
-                                                                                            $price =0;
-                                                                                            $overhead_total = 0;
-                                                                                            @endphp
-                                                                                            @foreach($overhead as $o_head )
-                                                                                            @php
-                                                                                                 $overhead_total+=$o_head->overhead;
-
-                                                                                               
-                                                                                            @endphp
-                                                                                               
-                                                                                            @endforeach
-                                                                                        
-                                                                                     @foreach($profit_margin as $pm)
-                                                                                      @foreach($recipe->recipe_ingredients as $recipe_ingr)
-                                                                                                @php    $recipe_ingredient = $recipe->getIngredient($recipe_ingr->ingredient_id);
-                                                                                                    $total_ += $recipe_ingredient->cost;
-                                                                                                  @endphp
-
-                                                                                                    @endforeach
-                                                                                                    @php 
-                                                                                        if($total_>0){            
-                                                                                      $price = (($total_+$overhead_total) /(1-($pm['profit_margin']/100)));
-                                                                                        }else{
-                                                                                            $price =0;
-                                                                                        }
-                                                                                      
-                                                                                                    @endphp
-                                                                                                   
-                                                                                                    @endforeach
-                                                                                 
-                                                                    ${{ number_format($price,2) }}
-                                                                </td>
-
+                                                     @php $i = 0;
+                                                 @endphp
+                                                              @foreach ($recipes as $recipe )
+                                                              @php $i++;
+                                                              @endphp
+                                                        <tr>
+                                                            <td> {{ $i }}</td>
+                                                            <td> {{ $recipe->recipe_name }}
                                                                 <td class="text-bold-500">
                                                                     {{ $recipe->created_at->diffForHumans() }}</td>
                                                                
@@ -147,50 +96,16 @@
                                                                                             data-bs-dismiss="modal"
                                                                                             aria-label="Close"></button>
                                                                                 </div>
-                                                                                <div class="modal-body">
-                                                                                    <h4>List</h4>
-                                                                                    <table class="" cellpadding="5">
-                                                                                        @php
-                                                                                            $total = 0;
-                                                                                        @endphp
-                                                                                        @foreach ($recipe->recipe_ingredients as $ri)
-                                                                                            <tr>
-                                                                                                @php
-                                                                                                    
-                                                                                                    $ingred = $recipe->getIngredient($ri->ingredient_id);
-                                                                                                    
-                                                                                                @endphp
-                                                                                                <td>{{ $ingred->ingredient }}
-                                                                                                </td>
-                                                                                                @php
-                                                                                                    $total += $ingred->cost;
-                                                                                                @endphp
-                                                                                                <td>$ {{ $ingred->cost }}
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        @endforeach
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <b>
-                                                                                                    <h1>Total:
-                                                                                                        ${{ number_format($total, 2) }}
-                                                                                                    </h1>
-                                                                                                </b>
-                                                                                            <td>
-                                                                                        </tr>
-                                                                                    </table>
-
+                                              
 
 
                                                                                 </div>
                                                                                 <div class="modal-footer">
                                                                                     <button type="button"
                                                                                         class="btn btn-secondary"
-                                                                                        data-bs-dismiss="modal">Cancel</button>
-
- hb
-                                                                                    <a href="recipe-ingredient/{{ $recipe->id }}"
-                                                                                        class="btn btn-primary  title="view Recipe Ingredients">
+                                                                                        data-bs-dismiss="modal">Add Ingredients</button>
+                                                                           <a href="recipe-ingredient/{{ $recipe->id }}"
+                                                                                        class="btn btn-primary"  title="view Recipe Ingredients">
                                                                                         details
                                                                                     </a>
                                                                                 </div>
@@ -349,7 +264,7 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save</button>
+                                            <button type="submit" class="btn btn-primary">Next</button>
                                         </div>
                                     </form>
                                 </div>

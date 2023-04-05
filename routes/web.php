@@ -26,9 +26,9 @@ Route::get('/', function () {
 ]);
 });
 
-Route::get('ingredients/',[IngredientController::class,'index']);
+Route::get('ingredients/{recipe_id}',[IngredientController::class,'index']);
 
-Route::post('ingredients/',[IngredientController::class,'store']);
+Route::post('ingredients/{recipe_id}',[IngredientController::class,'store']);
 Route::patch('ingredients/{id}',[IngredientController::class,'update']);
 Route::delete('ingredients/{id}',[IngredientController::class,'destroy']);
 
@@ -37,11 +37,15 @@ Route::post('recipes/',[RecipeController::class,'store']);
 Route::patch('recipes/{id}',[RecipeController::class,'update']);
 Route::delete('recipes/{id}',[RecipeController::class,'destroy']);
 
+
 Route::get('recipe-ingredient/{recipe_id}',[RecipeIngridentController::class,'show']);
 Route::post('recipe-ingredient/{recipe_id}',[RecipeIngridentController::class,'store']);
 Route::get('recipe-ingredient/delete/{id}',[RecipeIngridentController::class,'destroy']);
 
 Route::get('get-small-units/{big_unit_id}',[RecipeIngridentController::class,'get_small_units']);
+Route::get("get-ingredient-price/",function(){
+   return view("admin.components.get_ingredient_price");
+});
 
 Route::get('/measurements',[MeasurementController::class,'index']);
 Route::patch('measurements/{measurement_id}',[MeasurementController::class,'update']);

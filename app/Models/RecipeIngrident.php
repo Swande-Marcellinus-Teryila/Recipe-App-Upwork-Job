@@ -13,13 +13,13 @@ class RecipeIngrident extends Model
         'recipe_id',
         'quantity'
     ];
-    public function ingredient(){
-        return $this->belongsTo(Ingredient::class);
-    }
+    // public function ingredient(){
+    //     return $this->belongsTo(Ingredient::class);
+    // }
     
-    public function recipe(){
-        return $this->belongsTo(Recipe::class);
-    }
+    // public function recipe(){
+    //     return $this->belongsTo(Recipe::class);
+    // }
 
   
 }
